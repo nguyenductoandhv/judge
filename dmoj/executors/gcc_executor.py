@@ -143,6 +143,7 @@ class GCCExecutor(SingleDigitVersionMixin, CompiledExecutor):
 class CPPExecutor(GCCExecutor):
     std: str
     ext: str = 'cpp'
+    stack_limit: int = 256 * 1024 * 1024
 
     def get_flags(self):
-        return ([f'-std={self.std}']) + super().get_flags()
+        return ([f'-std={self.std}', f'-Wl,-z,stack-size={self.stack_limit}']) + super().get_flags()
